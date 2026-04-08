@@ -6,7 +6,7 @@ import { Church, ExternalLink, Hotel, MapPin, Mountain, Search, Sparkles, Trees,
 
 const tabs = [
   { id: "attractions", label: "Attractions", icon: MapPin },
-  { id: "marriotts", label: "Marriott Hotels", icon: Hotel },
+  { id: "marriotts", label: "Hotels & Resorts", icon: Hotel },
   { id: "national", label: "National Parks", icon: Trees },
   { id: "state", label: "State Parks", icon: Mountain },
   { id: "catholic", label: "Catholic Sites", icon: Church },
@@ -33,23 +33,29 @@ const data = {
     { name: "Bellagio Conservatory & Fountains", place: "Las Vegas", category: "Scenic City Stop", lat: 36.1126, lng: -115.1767, summary: "Beautiful, low-effort Vegas stop with flowers, water, and zero need for chaos.", bestTime: "Evening", foodNote: "Pair with a nice dinner and show night.", official: "https://bellagio.mgmresorts.com/en/entertainment/bellagio-fountains.html", reserve: "https://bellagio.mgmresorts.com/en/entertainment/bellagio-fountains.html", weather: "https://weather.gov/", maps: "https://www.google.com/maps/search/Bellagio+Fountains", photos: ["https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1200&q=80","https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"] }
   ],
   
+  
   marriotts: [
     { name: "SpringHill Suites Moab", place: "Moab", category: "Marriott Hotel", lat: 38.5907, lng: -109.5618, summary: "Top Moab base. Easy access to Arches and Canyonlands.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/SpringHill+Suites+Moab" },
-    { name: "Element Moab", place: "Moab", category: "Marriott Hotel", lat: 38.589, lng: -109.562, summary: "Modern, spacious rooms. Good for longer stays.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Element+Moab" },
-    { name: "Fairfield Inn Moab", place: "Moab", category: "Marriott Hotel", lat: 38.592, lng: -109.563, summary: "Reliable and comfortable with breakfast included.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Fairfield+Inn+Moab" },
+    { name: "Element Moab", place: "Moab", category: "Marriott Hotel", lat: 38.589, lng: -109.562, summary: "Modern, spacious rooms.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Element+Moab" },
+    { name: "Fairfield Inn Moab", place: "Moab", category: "Marriott Hotel", lat: 38.592, lng: -109.563, summary: "Reliable and comfortable.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Fairfield+Inn+Moab" },
 
-    { name: "SpringHill Suites Springdale Zion", place: "Zion", category: "Marriott Hotel", lat: 37.1774, lng: -113.0025, summary: "Best Zion Marriott option. Shuttle access and views.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/SpringHill+Suites+Zion" },
-    { name: "Fairfield Inn Virgin Zion", place: "Zion Area", category: "Marriott Hotel", lat: 37.213, lng: -113.187, summary: "Quiet alternative just outside Zion crowds.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Fairfield+Inn+Virgin+Zion" },
+    { name: "Red Cliffs Lodge", place: "Moab", category: "Resort", lat: 38.666, lng: -109.44, summary: "Scenic riverfront stay. More experience-driven.", official: "https://www.redcliffslodge.com/", maps: "https://www.google.com/maps/search/Red+Cliffs+Lodge+Moab" },
 
-    { name: "SpringHill Suites Bryce Canyon", place: "Bryce Canyon", category: "Marriott Hotel", lat: 37.673, lng: -112.156, summary: "Only real Marriott near Bryce. Book early.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/SpringHill+Suites+Bryce+Canyon" },
+    { name: "SpringHill Suites Zion", place: "Zion", category: "Marriott Hotel", lat: 37.1774, lng: -113.0025, summary: "Best Zion Marriott option.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/SpringHill+Suites+Zion" },
+    { name: "Cliffrose Springdale", place: "Zion", category: "Resort", lat: 37.188, lng: -112.998, summary: "Premium riverside resort near park entrance.", official: "https://www.cliffroselodge.com/", maps: "https://www.google.com/maps/search/Cliffrose+Springdale" },
 
-    { name: "Capitol Reef Resort", place: "Torrey", category: "Comfort Stay", lat: 38.292, lng: -111.414, summary: "Best available near Capitol Reef. Scenic and relaxed.", official: "https://www.capitolreefresort.com/", maps: "https://www.google.com/maps/search/Capitol+Reef+Resort" },
+    { name: "SpringHill Suites Bryce Canyon", place: "Bryce", category: "Marriott Hotel", lat: 37.673, lng: -112.156, summary: "Only Marriott near Bryce.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/SpringHill+Suites+Bryce+Canyon" },
+    { name: "The Lodge at Bryce Canyon", place: "Bryce", category: "Historic Lodge", lat: 37.622, lng: -112.167, summary: "Inside the park. Incredible access.", official: "https://www.nps.gov/", maps: "https://www.google.com/maps/search/Bryce+Canyon+Lodge" },
 
-    { name: "JW Marriott Las Vegas Resort", place: "Las Vegas", category: "Marriott Hotel", lat: 36.1774, lng: -115.3272, summary: "Quiet, resort-style Vegas stay away from chaos.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/JW+Marriott+Las+Vegas" },
-    { name: "The Westin Las Vegas", place: "Las Vegas", category: "Marriott Hotel", lat: 36.1147, lng: -115.166, summary: "Non-casino feel. Great for calmer stays.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Westin+Las+Vegas" },
-    { name: "Renaissance Las Vegas", place: "Las Vegas", category: "Marriott Hotel", lat: 36.134, lng: -115.151, summary: "Elegant and quieter than Strip hotels.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Renaissance+Las+Vegas" },
-    { name: "Marriott Grand Chateau", place: "Las Vegas", category: "Marriott Hotel", lat: 36.108, lng: -115.169, summary: "No casino. Huge win for comfort-focused travelers.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Marriott+Grand+Chateau" }
+    { name: "Capitol Reef Resort", place: "Torrey", category: "Resort", lat: 38.292, lng: -111.414, summary: "Best Capitol Reef stay option.", official: "https://www.capitolreefresort.com/", maps: "https://www.google.com/maps/search/Capitol+Reef+Resort" },
+
+    { name: "JW Marriott Las Vegas", place: "Las Vegas", category: "Marriott Hotel", lat: 36.1774, lng: -115.3272, summary: "Quiet resort feel.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/JW+Marriott+Las+Vegas" },
+    { name: "Westin Las Vegas", place: "Las Vegas", category: "Marriott Hotel", lat: 36.1147, lng: -115.166, summary: "Non-casino vibe.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Westin+Las+Vegas" },
+    { name: "Renaissance Las Vegas", place: "Las Vegas", category: "Marriott Hotel", lat: 36.134, lng: -115.151, summary: "Elegant and calm.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Renaissance+Las+Vegas" },
+    { name: "Marriott Grand Chateau", place: "Las Vegas", category: "Marriott Hotel", lat: 36.108, lng: -115.169, summary: "No casino. Great comfort.", official: "https://www.marriott.com/", maps: "https://www.google.com/maps/search/Marriott+Grand+Chateau" },
+    { name: "The Venetian Resort", place: "Las Vegas", category: "Luxury Resort", lat: 36.121, lng: -115.169, summary: "Upscale, spacious, great dining.", official: "https://www.venetianlasvegas.com/", maps: "https://www.google.com/maps/search/Venetian+Las+Vegas" }
   ],
+
 
   national: [],
   state: [
