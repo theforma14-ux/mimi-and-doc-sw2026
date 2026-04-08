@@ -69,7 +69,7 @@ function ActionLink({ href, label }) {
   return <a className="action-link" href={href} target="_blank" rel="noreferrer"><ExternalLink size={14} /><span>{label}</span></a>;
 }
 function Card({ item, selected, onClick }) {
-  return <button className={`card ${selected ? "selected" : ""}`} onClick={onClick}><div className="card-badge-art">{item.category}</div><div className="eyebrow">{item.category}</div><div className="card-title">{item.name}</div><div className="card-place">{item.place}</div><div className="card-summary">{item.summary}</div></button>;
+  return <button className={`card ${selected ? "selected" : ""}`} onClick={onClick}>{item.photos?.[0] ? <img className="card-image" src={item.photos[0]} alt={item.name} /> : <div className="card-badge-art">{item.category}</div>}<div className="eyebrow">{item.category}</div><div className="card-title">{item.name}</div><div className="card-place">{item.place}</div><div className="card-summary">{item.summary}</div></button>;
 }
 
 export default function App() {

@@ -13,3 +13,6 @@ Fresh Vite site with:
 
 
 Replacement package note: embedded generic photos were removed and replaced with exact-location photo launchers for better trustworthiness.
+
+
+v2 note: restored right-hand card photos while keeping the more trustworthy detail-panel photo launchers.
