@@ -10,3 +10,6 @@ Fresh Vite site with:
 - Catholic sites section
 - Vegas show section
 - refreshed detail panel with photos
+
+
+Replacement package note: embedded generic photos were removed and replaced with exact-location photo launchers for better trustworthiness.

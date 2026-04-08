@@ -2,7 +2,7 @@
 import React, { useMemo, useState } from "react";
 import L from "leaflet";
 import { MapContainer, Marker, Popup, Polyline, TileLayer } from "react-leaflet";
-import { Church, ExternalLink, Hotel, MapPin, Mountain, Search, Sparkles, Trees, UtensilsCrossed, Route, Star, Sun } from "lucide-react";
+import { Church, ExternalLink, Hotel, MapPin, Mountain, Search, Sparkles, Trees, UtensilsCrossed, Route, Star, Sun, Camera } from "lucide-react";
 
 const tabs = [
   { id: "attractions", label: "Attractions", icon: MapPin },
@@ -60,11 +60,16 @@ const vegasShows = [
   { name: "Sphere", summary: "Big visual spectacle with music-forward energy and no need to gamble your way through the evening.", link: "https://www.thesphere.com/" },
 ];
 
+
+function photoSearchLink(name) {
+  return `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(name)}`;
+}
+
 function ActionLink({ href, label }) {
   return <a className="action-link" href={href} target="_blank" rel="noreferrer"><ExternalLink size={14} /><span>{label}</span></a>;
 }
 function Card({ item, selected, onClick }) {
-  return <button className={`card ${selected ? "selected" : ""}`} onClick={onClick}>{item.photos?.[0] && <img className="card-image" src={item.photos[0]} alt={item.name} />}<div className="eyebrow">{item.category}</div><div className="card-title">{item.name}</div><div className="card-place">{item.place}</div><div className="card-summary">{item.summary}</div></button>;
+  return <button className={`card ${selected ? "selected" : ""}`} onClick={onClick}><div className="card-badge-art">{item.category}</div><div className="eyebrow">{item.category}</div><div className="card-title">{item.name}</div><div className="card-place">{item.place}</div><div className="card-summary">{item.summary}</div></button>;
 }
 
 export default function App() {
@@ -143,7 +148,21 @@ export default function App() {
                 {selected.weather && <ActionLink href={selected.weather} label="Weather" />}
               </div>
             </div>
-            <div className="detail-photo-grid">{(selected.photos || []).map((src, i) => <img key={src + i} src={src} alt={`${selected.name} ${i + 1}`} />)}</div>
+            <div className="detail-photo-grid">
+              <a className="photo-search-card hero-photo-search" href={photoSearchLink(selected.name)} target="_blank" rel="noreferrer">
+                <div className="photo-search-icon"><Camera size={28} /></div>
+                <div className="photo-search-title">View matched photos for {selected.name}</div>
+                <div className="photo-search-copy">Opens a photo search for this exact location instead of showing generic placeholder scenery.</div>
+              </a>
+              <a className="photo-search-card" href={selected.official} target="_blank" rel="noreferrer">
+                <div className="photo-search-title">Official site photos</div>
+                <div className="photo-search-copy">Use the official page for more trustworthy imagery and trip details.</div>
+              </a>
+              <a className="photo-search-card" href={selected.maps} target="_blank" rel="noreferrer">
+                <div className="photo-search-title">Open map location</div>
+                <div className="photo-search-copy">Jump straight to the exact place in Maps.</div>
+              </a>
+            </div>
             <div className="detail-copy">
               <p>{selected.summary}</p>
               {selected.bestTime && <div className="mini-row"><Sun size={16} /> Best time: {selected.bestTime}</div>}
