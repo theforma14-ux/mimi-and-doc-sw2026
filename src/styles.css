@@ -89,3 +89,28 @@
   background:linear-gradient(135deg,var(--accent3),var(--accent2));
   color:white;
 }
+
+.trip-card{
+  border:1px solid var(--border);
+  background:white;
+  border-radius:22px;
+  padding:14px;
+  text-align:left;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+}
+.trip-card.selected{
+  outline:3px solid rgba(217,119,6,.2);
+  border-color:var(--accent);
+}
+.trip-plan-detail{
+  display:grid;
+  gap:12px;
+  margin-top:16px;
+}
+.trip-plan-box{
+  background:#fff7ec;
+  border-radius:18px;
+  padding:16px;
+  line-height:1.5;
+}

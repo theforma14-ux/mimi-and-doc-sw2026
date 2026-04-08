@@ -11,6 +11,7 @@ const tabs = [
   { id: "state", label: "State Parks", icon: Mountain },
   { id: "catholic", label: "Catholic Sites", icon: Church },
   { id: "restaurants", label: "Restaurants", icon: UtensilsCrossed },
+  { id: "tripplan", label: "Trip Plan", icon: Route },
 ];
 
 const markerIcon = new L.DivIcon({ className: "custom-marker", html: '<div class="marker-pin"></div>', iconSize: [18, 18], iconAnchor: [9, 9] });
@@ -75,6 +76,19 @@ const data = {
 
 data.national = data.attractions.filter((item) => item.category === "National Park");
 
+
+const tripPlanDays = [
+  { day: 1, title: "Denver → Moab", drive: "6.0 hr", bestTime: "Start early", senior: "Use two real breaks and a calm dinner on arrival.", food: "Desert Bistro or an easy early dinner in Moab." },
+  { day: 2, title: "Arches Day", drive: "0.5 hr local", bestTime: "Sunrise to late morning", senior: "Choose viewpoints over long walks and head back before midday heat.", food: "Lunch back in Moab and a slow afternoon." },
+  { day: 3, title: "Moab Bonus Day", drive: "1.0 hr local", bestTime: "Morning", senior: "Dead Horse Point works well as a low-effort wow day.", food: "Pick a shaded lunch and keep the evening easy." },
+  { day: 4, title: "Moab → Torrey", drive: "2.5 hr", bestTime: "Late morning departure", senior: "Make the transfer day scenic, not rushed.", food: "Relaxed lunch stop en route or dinner in Torrey." },
+  { day: 5, title: "Capitol Reef Day", drive: "1.0 hr local", bestTime: "Morning", senior: "Great day for scenic drives, orchards, and gentler sightseeing.", food: "Keep this a comfort-food day with minimal rushing." },
+  { day: 6, title: "Torrey → Bryce", drive: "2.5 hr", bestTime: "Morning departure", senior: "Beautiful road day; stop for views without overdoing it.", food: "Nice lunch on Highway 12 if energy is good." },
+  { day: 7, title: "Bryce Day", drive: "0.5 hr local", bestTime: "Sunrise or late afternoon", senior: "Overlooks are the star here. Short, easy walking only.", food: "Warm breakfast, scenic lunch, and a restful dinner." },
+  { day: 8, title: "Bryce → Springdale", drive: "2.5 hr", bestTime: "Late morning", senior: "Keep this a transition day and save energy for Zion.", food: "Good dinner in Springdale." },
+  { day: 9, title: "Zion → Las Vegas", drive: "3.0 hr", bestTime: "Very early Zion, then transfer", senior: "Do the easy Zion beauty first, then finish in comfort.", food: "Nice Vegas dinner and optional show night." },
+];
+
 const vegasShows = [
   { name: "The Smith Center", summary: "Broadway, concerts, and polished performances in a more elegant setting.", link: "https://thesmithcenter.com/" },
   { name: "Sphere", summary: "Big visual spectacle with music-forward energy and no need to gamble your way through the evening.", link: "https://www.thesphere.com/" },
@@ -99,14 +113,14 @@ export default function App() {
   const [selected, setSelected] = useState(data.attractions[0]);
 
   const availableStops = useMemo(() => {
-    const items = data[activeTab] || [];
+    const items = activeTab === "tripplan" ? [] : (data[activeTab] || []);
     const stops = Array.from(new Set(items.map((item) => item.place)));
     return ["All Stops", ...stops];
   }, [activeTab]);
 
   const currentItems = useMemo(() => {
-    let items = data[activeTab] || [];
-    if (locationFilter !== "All Stops") {
+    let items = activeTab === "tripplan" ? tripPlanDays : (data[activeTab] || []);
+    if (activeTab !== "tripplan" && locationFilter !== "All Stops") {
       items = items.filter((item) => item.place === locationFilter);
     }
     if (!query.trim()) return items;
@@ -120,7 +134,7 @@ export default function App() {
   }, [activeTab, query, locationFilter]);
 
   const allMapItems = useMemo(() => {
-    const current = data[activeTab] || [];
+    const current = activeTab === "tripplan" ? [] : (data[activeTab] || []);
     return current.filter((item) => typeof item.lat === "number" && typeof item.lng === "number");
   }, [activeTab]);
 
@@ -163,7 +177,8 @@ export default function App() {
 
         <section className="panel list-panel">
           <div className="panel-title"><Search size={18} /> Browse</div>
-          <div className="search-box"><Search size={16} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={`Search ${tabs.find((t) => t.id === activeTab)?.label.toLowerCase()}`} /></div>
+          <div className="search-box"><Search size={16} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={activeTab === "tripplan" ? "Search trip plan" : `Search ${tabs.find((t) => t.id === activeTab)?.label.toLowerCase()}`} /></div>
+          {activeTab !== "tripplan" && (
           <div className="filter-row">
             {availableStops.map((stop) => (
               <button
@@ -175,41 +190,69 @@ export default function App() {
               </button>
             ))}
           </div>
-          <div className="card-list">{currentItems.map((item) => <Card key={item.name} item={item} selected={selected?.name === item.name} onClick={() => setSelected(item)} />)}</div>
+          )}
+          <div className="card-list">
+            {activeTab === "tripplan"
+              ? currentItems.map((item) => (
+                  <button key={item.day} className={`trip-card ${selected?.day === item.day ? "selected" : ""}`} onClick={() => setSelected(item)}>
+                    <div className="eyebrow">Day {item.day}</div>
+                    <div className="card-title">{item.title}</div>
+                    <div className="card-summary">Drive: {item.drive}</div>
+                    <div className="card-summary">Best time: {item.bestTime}</div>
+                  </button>
+                ))
+              : currentItems.map((item) => <Card key={item.name} item={item} selected={selected?.name === item.name} onClick={() => setSelected(item)} />)}
+          </div>
         </section>
 
         <section className="panel detail-panel">
-          {selected ? <>
-            <div className="detail-header">
-              <div><div className="detail-eyebrow">{selected.category}</div><h2>{selected.name}</h2><div className="detail-place">{selected.place}</div></div>
-              <div className="detail-links">
-                <ActionLink href={selected.official} label="Official" />
-                <ActionLink href={selected.maps} label="Map" />
-                {selected.reserve && <ActionLink href={selected.reserve} label="Reserve / Fees" />}
-                {selected.weather && <ActionLink href={selected.weather} label="Weather" />}
-              </div>
-            </div>
-            <div className="detail-photo-grid">
-              <a className="photo-search-card hero-photo-search" href={photoSearchLink(selected.name)} target="_blank" rel="noreferrer">
-                <div className="photo-search-icon"><Camera size={28} /></div>
-                <div className="photo-search-title">View matched photos for {selected.name}</div>
-                <div className="photo-search-copy">Opens a photo search for this exact location instead of showing generic placeholder scenery.</div>
-              </a>
-              <a className="photo-search-card" href={selected.official} target="_blank" rel="noreferrer">
-                <div className="photo-search-title">Official site photos</div>
-                <div className="photo-search-copy">Use the official page for more trustworthy imagery and trip details.</div>
-              </a>
-              <a className="photo-search-card" href={selected.maps} target="_blank" rel="noreferrer">
-                <div className="photo-search-title">Open map location</div>
-                <div className="photo-search-copy">Jump straight to the exact place in Maps.</div>
-              </a>
-            </div>
-            <div className="detail-copy">
-              <p>{selected.summary}</p>
-              {selected.bestTime && <div className="mini-row"><Sun size={16} /> Best time: {selected.bestTime}</div>}
-              {selected.foodNote && <div className="mini-row"><Star size={16} /> Food note: {selected.foodNote}</div>}
-            </div>
-          </> : <div className="empty-state">No results in this section yet.</div>}
+          {selected ? (
+            activeTab === "tripplan" ? (
+              <>
+                <div className="detail-header">
+                  <div><div className="detail-eyebrow">Day {selected.day}</div><h2>{selected.title}</h2><div className="detail-place">Suggested pacing for seniors</div></div>
+                </div>
+                <div className="trip-plan-detail">
+                  <div className="trip-plan-box"><strong>Drive time:</strong> {selected.drive}</div>
+                  <div className="trip-plan-box"><strong>Best time:</strong> {selected.bestTime}</div>
+                  <div className="trip-plan-box"><strong>Senior note:</strong> {selected.senior}</div>
+                  <div className="trip-plan-box"><strong>Food plan:</strong> {selected.food}</div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="detail-header">
+                  <div><div className="detail-eyebrow">{selected.category}</div><h2>{selected.name}</h2><div className="detail-place">{selected.place}</div></div>
+                  <div className="detail-links">
+                    <ActionLink href={selected.official} label="Official" />
+                    <ActionLink href={selected.maps} label="Map" />
+                    {selected.reserve && <ActionLink href={selected.reserve} label="Reserve / Fees" />}
+                    {selected.weather && <ActionLink href={selected.weather} label="Weather" />}
+                  </div>
+                </div>
+                <div className="detail-photo-grid">
+                  <a className="photo-search-card hero-photo-search" href={photoSearchLink(selected.name)} target="_blank" rel="noreferrer">
+                    <div className="photo-search-icon"><Camera size={28} /></div>
+                    <div className="photo-search-title">View matched photos for {selected.name}</div>
+                    <div className="photo-search-copy">Opens a photo search for this exact location instead of showing generic placeholder scenery.</div>
+                  </a>
+                  <a className="photo-search-card" href={selected.official} target="_blank" rel="noreferrer">
+                    <div className="photo-search-title">Official site photos</div>
+                    <div className="photo-search-copy">Use the official page for more trustworthy imagery and trip details.</div>
+                  </a>
+                  <a className="photo-search-card" href={selected.maps} target="_blank" rel="noreferrer">
+                    <div className="photo-search-title">Open map location</div>
+                    <div className="photo-search-copy">Jump straight to the exact place in Maps.</div>
+                  </a>
+                </div>
+                <div className="detail-copy">
+                  <p>{selected.summary}</p>
+                  {selected.bestTime && <div className="mini-row"><Sun size={16} /> Best time: {selected.bestTime}</div>}
+                  {selected.foodNote && <div className="mini-row"><Star size={16} /> Food note: {selected.foodNote}</div>}
+                </div>
+              </>
+            )
+          ) : <div className="empty-state">No results in this section yet.</div>}
         </section>
 
         <section className="panel vegas-panel">
