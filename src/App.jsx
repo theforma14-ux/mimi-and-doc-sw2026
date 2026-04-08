@@ -94,20 +94,30 @@ function Card({ item, selected, onClick }) {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("attractions");
+  const [locationFilter, setLocationFilter] = useState("All Stops");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(data.attractions[0]);
 
-  const currentItems = useMemo(() => {
+  const availableStops = useMemo(() => {
     const items = data[activeTab] || [];
+    const stops = Array.from(new Set(items.map((item) => item.place)));
+    return ["All Stops", ...stops];
+  }, [activeTab]);
+
+  const currentItems = useMemo(() => {
+    let items = data[activeTab] || [];
+    if (locationFilter !== "All Stops") {
+      items = items.filter((item) => item.place === locationFilter);
+    }
     if (!query.trim()) return items;
     const q = query.toLowerCase();
     return items.filter((item) => `${item.name} ${item.place} ${item.summary} ${item.category}`.toLowerCase().includes(q));
-  }, [activeTab, query]);
+  }, [activeTab, query, locationFilter]);
 
   React.useEffect(() => {
     if (currentItems.length) setSelected(currentItems[0]);
     else setSelected(null);
-  }, [activeTab, query]);
+  }, [activeTab, query, locationFilter]);
 
   const allMapItems = useMemo(() => {
     const current = data[activeTab] || [];
@@ -134,7 +144,7 @@ export default function App() {
         <div className="tab-row">
           {tabs.map((tab) => {
             const Icon = tab.icon;
-            return <button key={tab.id} className={`tab-button ${activeTab === tab.id ? "active" : ""}`} onClick={() => setActiveTab(tab.id)}><Icon size={16} /><span>{tab.label}</span></button>;
+            return <button key={tab.id} className={`tab-button ${activeTab === tab.id ? "active" : ""}`} onClick={() => { setActiveTab(tab.id); setLocationFilter("All Stops"); }}><Icon size={16} /><span>{tab.label}</span></button>;
           })}
         </div>
       </header>
@@ -154,6 +164,17 @@ export default function App() {
         <section className="panel list-panel">
           <div className="panel-title"><Search size={18} /> Browse</div>
           <div className="search-box"><Search size={16} /><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={`Search ${tabs.find((t) => t.id === activeTab)?.label.toLowerCase()}`} /></div>
+          <div className="filter-row">
+            {availableStops.map((stop) => (
+              <button
+                key={stop}
+                className={`filter-chip ${locationFilter === stop ? "active" : ""}`}
+                onClick={() => setLocationFilter(stop)}
+              >
+                {stop}
+              </button>
+            ))}
+          </div>
           <div className="card-list">{currentItems.map((item) => <Card key={item.name} item={item} selected={selected?.name === item.name} onClick={() => setSelected(item)} />)}</div>
         </section>
 
