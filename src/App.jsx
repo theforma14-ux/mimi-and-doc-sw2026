@@ -107,7 +107,7 @@ function Card({ item, selected, onClick }) {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState("attractions");
+  const [activeTab, setActiveTab] = useState("tripplan");
   const [locationFilter, setLocationFilter] = useState("All Stops");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(data.attractions[0]);
