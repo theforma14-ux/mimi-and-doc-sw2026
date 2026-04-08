@@ -1,34 +1,43 @@
-# Mimi & Doc Southwest 2026
+# Mimi & Doc Southwest Road Trip Planner
 
-A senior-friendly React + Vite travel planning app for a Southwest road trip.
+This package is a full replacement for your React + Vite app.
 
-## What changed in this replacement package
+## What changed
 
-- Trip Plan is now the polished home screen
-- Each day is presented as a premium card experience
-- Larger visual hierarchy and calmer layout
-- Better Vegas ending with hotel + dinner + show pairings
-- Curated hotels and restaurants with less clutter
-- Category-aware map with stop filter and category selector
-- Official site, map, and photo search links on detail cards
+- Trip Plan feels more premium and guided
+- Each day is now a stronger “card experience”
+- Added calmer visual hierarchy and larger, easier-to-scan sections
+- Added planning notes for your parents
+- Added clearer hotel guidance with “best for” labels
+- Upgraded Vegas ending with:
+  - hotel + dinner + show pairings
+  - calmer finale options
+  - “best for parents” guidance
+  - easier low-friction choices
+- Improved map helper guidance
+- Curated categories to feel more intentional and less cluttered
 
-## Simple install / replace steps
+## Simple install
 
-1. Download this zip.
-2. Unzip it.
-3. Upload the contents to your GitHub repo, replacing the old files.
-4. Commit the changes.
-5. Vercel will auto-deploy.
+1. Download the zip
+2. Unzip it
+3. Open your GitHub repo on your computer
+4. Replace the old files with the files from this package
+5. Commit and push
+6. Vercel will deploy automatically
 
-## Local run (optional)
+## If you upload through GitHub web
 
-```bash
-npm install
-npm run dev
-```
+1. Open your repo
+2. Choose **Add file** → **Upload files**
+3. Drag in the replacement files
+4. Let GitHub replace the old ones
+5. Commit changes
+6. Wait for Vercel to redeploy
 
-## Build
+## Notes
 
-```bash
-npm run build
-```
+- No manual code editing required
+- No line hunting required
+- Built for React + Vite
+- Production build tested successfully before packaging

@@ -31,7 +31,7 @@ const tabConfig = {
   },
   'Hotels & Resorts': {
     items: hotels,
-    subtitle: 'Comfort-first lodging with stronger luxury choices, especially for Las Vegas.',
+    subtitle: 'Comfort-first lodging with stronger luxury choices and clearer “best for” guidance, especially in Las Vegas.',
   },
   'National Parks': {
     items: nationalParks,
@@ -47,7 +47,7 @@ const tabConfig = {
   },
   Restaurants: {
     items: restaurants,
-    subtitle: 'Food-forward, intentional choices for memorable meals during the trip.',
+    subtitle: 'Food-forward picks with clearer “best use” notes so dinner choices feel easier in the moment.',
   },
 }
 
@@ -62,21 +62,22 @@ export default function App() {
     if (selectedLocation === 'All stops') return current.items
 
     return current.items.filter((item) => {
-      if (selectedLocation === 'Zion') {
-        return item.location === 'Zion' || item.location === 'Near Zion'
-      }
+      if (selectedLocation === 'Zion') return item.location === 'Zion' || item.location === 'Near Zion'
+      if (selectedLocation === 'Torrey') return item.location === 'Torrey' || item.location === 'Near Torrey'
+      if (selectedLocation === 'Bryce') return item.location === 'Bryce' || item.location === 'Near Bryce'
       return item.location === selectedLocation
     })
   }, [activeTab, selectedLocation])
 
   return (
     <div className="app-shell">
-      <header className="app-header">
+      <header className="app-header premium-header">
         <div>
           <p className="eyebrow">mimi-and-doc-sw2026</p>
           <h1>Mimi & Doc Southwest Road Trip Planner</h1>
           <p className="header-copy">
-            Senior-friendly planning for Denver, Moab, Torrey, Bryce, Zion, and Las Vegas — designed to feel calm, clear, and special.
+            Senior-friendly planning for Denver, Moab, Torrey, Bryce, Zion, and Las Vegas — with calmer visuals,
+            better premium picks, and fewer decisions in the moment.
           </p>
         </div>
 

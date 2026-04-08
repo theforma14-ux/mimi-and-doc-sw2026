@@ -14,8 +14,12 @@ export default function CollectionView({ title, subtitle, items }) {
           <article className="collection-card" key={`${item.name}-${item.location}`}>
             <div className="collection-top">
               <div>
+                <div className="card-kicker-row">
+                  <p className="location-pill">{item.location}</p>
+                  {item.badge ? <span className="feature-pill">{item.badge}</span> : null}
+                </div>
                 <h4>{item.name}</h4>
-                <p className="location-pill">{item.location}</p>
+                {item.bestFor ? <p className="best-for">{item.bestFor}</p> : null}
               </div>
               {item.tier ? <span className="tier-pill">{item.tier}</span> : null}
             </div>

@@ -17,6 +17,8 @@ const stopCoords = {
   Bryce: [37.6722, -112.1569],
   Zion: [37.1889, -112.9986],
   'Near Zion': [37.0965, -113.5684],
+  'Near Torrey': [38.2961, -111.4063],
+  'Near Bryce': [37.5586, -112.2538],
   'Las Vegas': [36.1699, -115.1398],
 }
 
@@ -26,7 +28,10 @@ export default function MapView({ selectedCategory, selectedLocation, onCategory
 
   const visibleItems = categoryItems.filter((item) => {
     if (selectedLocation === 'All stops') return true
-    return item.location === selectedLocation || (selectedLocation === 'Zion' && item.location === 'Near Zion')
+    if (selectedLocation === 'Zion') return item.location === 'Zion' || item.location === 'Near Zion'
+    if (selectedLocation === 'Torrey') return item.location === 'Torrey' || item.location === 'Near Torrey'
+    if (selectedLocation === 'Bryce') return item.location === 'Bryce' || item.location === 'Near Bryce'
+    return item.location === selectedLocation
   })
 
   return (
@@ -36,7 +41,7 @@ export default function MapView({ selectedCategory, selectedLocation, onCategory
           <p className="eyebrow">Route map</p>
           <h3>Trip route + selected stops</h3>
           <p>
-            The map keeps the full route visible from Denver to Las Vegas, while pins update to match the category and stop filter.
+            The full Denver-to-Vegas route stays visible, while pins update to match your chosen category and stop filter.
           </p>
         </div>
 
@@ -49,6 +54,15 @@ export default function MapView({ selectedCategory, selectedLocation, onCategory
               </option>
             ))}
           </select>
+        </div>
+      </div>
+
+      <div className="map-helper-row">
+        <div className="map-helper-card">
+          <strong>Tip:</strong> Use <em>Hotels & Resorts</em> first when you want the cleanest planning view.
+        </div>
+        <div className="map-helper-card">
+          <strong>Best use:</strong> Switch to <em>Restaurants</em> or <em>Attractions</em> only after you choose your hotel base.
         </div>
       </div>
 
@@ -78,6 +92,12 @@ export default function MapView({ selectedCategory, selectedLocation, onCategory
               {item.location}
               <br />
               {item.note}
+              {item.bestFor ? (
+                <>
+                  <br />
+                  {item.bestFor}
+                </>
+              ) : null}
             </Popup>
           </Marker>
         ))}
