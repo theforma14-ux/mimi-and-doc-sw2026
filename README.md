@@ -1,43 +1,37 @@
-# Mimi & Doc Southwest Road Trip Planner
+# Mimi & Doc Southwest 2026
 
-This package is a full replacement for your React + Vite app.
+## How to replace your app without debugging
 
-## What changed
+### Best method
+1. Download the zip.
+2. Unzip it on your computer.
+3. Open your GitHub repo.
+4. Upload the **contents inside the unzipped folder** into the root of your repo.
+   - You should see files like `package.json`, `vite.config.js`, and the `src` folder at the top level.
+   - Do **not** upload one parent folder that contains those files.
+5. Let GitHub replace existing files.
+6. Commit.
+7. Wait for Vercel to redeploy.
 
-- Trip Plan feels more premium and guided
-- Each day is now a stronger “card experience”
-- Added calmer visual hierarchy and larger, easier-to-scan sections
-- Added planning notes for your parents
-- Added clearer hotel guidance with “best for” labels
-- Upgraded Vegas ending with:
-  - hotel + dinner + show pairings
-  - calmer finale options
-  - “best for parents” guidance
-  - easier low-friction choices
-- Improved map helper guidance
-- Curated categories to feel more intentional and less cluttered
+## How to confirm the new version is live
+On the home screen header, you should now see:
 
-## Simple install
+**SPRING REFRESH • APR 2026**
 
-1. Download the zip
-2. Unzip it
-3. Open your GitHub repo on your computer
-4. Replace the old files with the files from this package
-5. Commit and push
-6. Vercel will deploy automatically
+If you do **not** see that label, the old app is still deploying.
 
-## If you upload through GitHub web
+## Most important folders/files that must be replaced
+- `src/`
+- `public/`
+- `package.json`
+- `package-lock.json`
+- `vite.config.js`
+- `index.html`
 
-1. Open your repo
-2. Choose **Add file** → **Upload files**
-3. Drag in the replacement files
-4. Let GitHub replace the old ones
-5. Commit changes
-6. Wait for Vercel to redeploy
+## Cleanest fallback method
+If GitHub upload feels messy:
+1. Delete the old `src` folder in the repo.
+2. Upload the new `src` folder from this package.
+3. Replace `package.json`, `package-lock.json`, `vite.config.js`, and `index.html`.
+4. Commit.
 
-## Notes
-
-- No manual code editing required
-- No line hunting required
-- Built for React + Vite
-- Production build tested successfully before packaging

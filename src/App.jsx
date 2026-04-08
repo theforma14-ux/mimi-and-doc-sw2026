@@ -73,12 +73,18 @@ export default function App() {
     <div className="app-shell">
       <header className="app-header premium-header">
         <div>
-          <p className="eyebrow">mimi-and-doc-sw2026</p>
-          <h1>Mimi & Doc Southwest Road Trip Planner</h1>
+          <div className="title-row">
+            <p className="eyebrow">mimi-and-doc-sw2026</p>
+            <span className="version-pill">SPRING REFRESH • APR 2026</span>
+          </div>
+          <h1>Mimi &amp; Doc Southwest Road Trip Planner</h1>
           <p className="header-copy">
             Senior-friendly planning for Denver, Moab, Torrey, Bryce, Zion, and Las Vegas — with calmer visuals,
             better premium picks, and fewer decisions in the moment.
           </p>
+          <div className="launch-banner">
+            <strong>New in this build:</strong> premium Trip Plan cards, calmer pacing, and a more curated Las Vegas finale.
+          </div>
         </div>
 
         <div className="header-controls">
@@ -91,6 +97,7 @@ export default function App() {
                 </option>
               ))}
             </select>
+            <p className="control-help">Tip: start on Trip Plan, then use Hotels or Restaurants for a deeper look at one stop.</p>
           </div>
         </div>
       </header>

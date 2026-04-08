@@ -160,6 +160,43 @@ h4 {
   margin-bottom: 8px;
 }
 
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.version-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #edf6f4;
+  color: #315f5c;
+  border: 1px solid rgba(49, 95, 92, 0.15);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.launch-banner {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(236, 246, 244, 0.95), rgba(255,255,255,0.92));
+  border: 1px solid rgba(49, 95, 92, 0.12);
+  color: #31535f;
+  font-size: 0.98rem;
+}
+
+.control-help {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
 .header-controls {
   display: flex;
   align-items: stretch;
